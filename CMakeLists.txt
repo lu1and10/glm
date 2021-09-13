@@ -20,7 +20,10 @@ add_subdirectory(glm)
 add_library(glm::glm ALIAS glm)
 
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
+    set(GLM_INSTALL ON)
+endif(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
 
+if(GLM_INSTALL)
 	include(CPack)
 	install(DIRECTORY glm DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} PATTERN "CMakeLists.txt" EXCLUDE)
 	install(EXPORT glm FILE glmConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/glm NAMESPACE glm::)
@@ -32,8 +35,8 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
 	if(BUILD_TESTING)
 		add_subdirectory(test)
 	endif()
+endif()
 
-endif(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
 
 if (NOT TARGET uninstall)
 configure_file(cmake/cmake_uninstall.cmake.in
